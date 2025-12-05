@@ -1,15 +1,68 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent } from "react";
+
+
+export interface WeatherData {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+
+  weather: {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  }[];
+
+  base: string;
+
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+
+  visibility: number;
+
+  wind: {
+    speed: number;
+    deg: number;
+  };
+
+  clouds: {
+    all: number;
+  };
+
+  dt: number;
+
+  sys: {
+    type?: number;
+    id?: number;
+    country: string;
+    sunrise?: number;
+    sunset?: number;
+  };
+
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+}
+
 
 export default function WeatherUI() {
   const Key = "de9af8ed5f90311a3bb6733f5938aebd";
 
   const [city, setCity] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<WeatherData>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getWeatherData = async (e) => {
+  const getWeatherData = async (e:ChangeEvent) => {
     e.preventDefault();
     if (!city.trim()) return setError("Please enter a city name.");
 
@@ -28,7 +81,7 @@ export default function WeatherUI() {
     } catch (err) {
       console.error(err);
       setError("Unable to find weather for that city. Try another name.");
-      setData(null);
+      setData();
     } finally {
       setLoading(false);
     }

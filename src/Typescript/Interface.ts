@@ -19,3 +19,10 @@ export interface ProductDetails {
   images?: string[];
   reviews?: Review[];
 }
+
+
+
+
+
+
+

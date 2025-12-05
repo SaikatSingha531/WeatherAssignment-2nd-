@@ -1,8 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+interface Joke {
+  type: string;
+  setup: string;
+  punchline: string;
+}
+
+
 const Jokes = () => {
-  const [jokes, setJokes] = useState({
+  const [jokes, setJokes] = useState<Joke>({
     type: "",
     setup: "",
     punchline: "",
