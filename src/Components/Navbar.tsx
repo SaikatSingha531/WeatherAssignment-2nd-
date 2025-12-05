@@ -18,7 +18,7 @@ const Navbar = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `text-white text-lg font-semibold px-4 py-2 rounded-xl transition-all duration-300 
-                  ${isActive ? "bg-white text-black shadow-md" : "hover:bg-white/20"}`
+                  ${isActive ? " text-black shadow-md" : "hover:bg-white/20"}`
                 }
               >
                 {item.name}
