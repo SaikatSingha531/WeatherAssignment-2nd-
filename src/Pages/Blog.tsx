@@ -33,7 +33,7 @@ const Demo = () => {
     fetchBlogs();
   }, []);
 
-  let sortedBlogs = [...blogs];
+  const sortedBlogs = [...blogs];
   if (sort === "asc") sortedBlogs.sort((a, b) => a.title.localeCompare(b.title));
   if (sort === "desc")
     sortedBlogs.sort((a, b) => b.title.localeCompare(a.title));
@@ -46,24 +46,7 @@ const Demo = () => {
         Blog Posts
       </h1>
 
-      {/* Center Buttons */}
-      {/* <div className="flex justify-center gap-4 mb-10">
-        <Link
-          to="/?sort=asc"
-          className="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md 
-                     hover:bg-indigo-700 transition"
-        >
-          Sort A-Z
-        </Link>
 
-        <Link
-          to="/?sort=desc"
-          className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow-md 
-                     hover:bg-blue-700 transition"
-        >
-          Sort D-A
-        </Link>
-      </div> */}
 
       {/* Loading & Error */}
       {loading && <p className="text-xl text-center">Loading...</p>}

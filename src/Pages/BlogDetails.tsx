@@ -4,29 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IoArrowBackSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
 import { FaShippingFast, FaStar } from "react-icons/fa";
 import { FaArrowRotateLeft } from "react-icons/fa6";
-// import type { ProductDetails } from "../Typescript/interface"; // ✅ import type
+import type { ProductDetails } from "../Typescript/Interface";
 
- interface Review {
-  rating: number;
-  comment: string;
-  date: string;
-  reviewerEmail: string;
-  reviewerName: string;
-}
 
-export interface ProductDetails {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage?: number;
-  availabilityStatus?: string;
-  warrantyInformation?: string;
-  shippingInformation?: string;
-  returnPolicy?: string;
-  images?: string[];
-  reviews?: Review[];
-}
 
 const ViewProduct = () => {
   const [loading, setLoading] = useState(true);
