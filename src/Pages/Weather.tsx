@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, type ChangeEvent } from "react";
+import{ useState, type ChangeEvent } from "react";
 
 
 export interface WeatherData {
@@ -81,7 +81,7 @@ export default function WeatherUI() {
     } catch (err) {
       console.error(err);
       setError("Unable to find weather for that city. Try another name.");
-      setData();
+      // setData();
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ export default function WeatherUI() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#f7fafc] to-[#eef2f7] p-6">
       <form
-        onSubmit={getWeatherData}
+        onSubmit={()=>getWeatherData}
         className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-2xl shadow-lg ring-1 ring-gray-100 p-6 transform transition-all hover:-translate-y-1"
       >
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
