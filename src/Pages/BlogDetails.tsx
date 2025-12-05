@@ -1,41 +1,66 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import type { ProductList } from "../Typescript/interface";
 import { IoArrowBackSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
 import { FaShippingFast, FaStar } from "react-icons/fa";
-// import Loader from "../components/Loader";
 import { FaArrowRotateLeft } from "react-icons/fa6";
+// import type { ProductDetails } from "../Typescript/interface"; // ✅ import type
+
+ interface Review {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerEmail: string;
+  reviewerName: string;
+}
+
+export interface ProductDetails {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage?: number;
+  availabilityStatus?: string;
+  warrantyInformation?: string;
+  shippingInformation?: string;
+  returnPolicy?: string;
+  images?: string[];
+  reviews?: Review[];
+}
 
 const ViewProduct = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>(); // ✅ typed param
 
-  const [productDetails, setProdutDetails] = useState();
+  const [productDetails, setProdutDetails] = useState<ProductDetails | null>(null); // ✅ typed state
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!id) return;
+
       try {
-        const response = await axios.get(
+        const response = await axios.get<ProductDetails>(
           `https://dummyjson.com/products/${id}`
         );
-        setProdutDetails(response?.data);
+        setProdutDetails(response.data);
       } catch (error) {
         console.log(error);
       } finally {
         setTimeout(() => setLoading(false), 900);
       }
     };
+
     fetchData();
   }, [id]);
+
   console.log("product Detail", productDetails);
 
   return (
     <>
       {loading ? (
         <div className="flex justify-center items-center h-[70vh]">
-         <p>Loading...</p>
+          <p>Loading...</p>
         </div>
       ) : (
         <div className="p-8 min-h-screen bg-gradient-to-br from-[#e8efff] via-[#f3fff7] to-[#fff4ef]">
@@ -98,7 +123,7 @@ const ViewProduct = () => {
                       : "bg-red-100 text-red-700"
                   }`}
                 >
-                  {productDetails?.availabilityStatus}
+                  {productDetails?.availabilityStatus || "Unknown"}
                 </span>
               </p>
 
@@ -138,7 +163,7 @@ const ViewProduct = () => {
 
             {productDetails?.reviews?.length ? (
               <div className="flex flex-col gap-5">
-                {productDetails.reviews?.map((review, i) => (
+                {productDetails.reviews.map((review, i) => (
                   <div
                     key={i}
                     className="border rounded-xl p-5 bg-gray-50 hover:shadow transition relative"
